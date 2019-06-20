@@ -40,7 +40,8 @@
                 "./node_modules/@fullcalendar/timegrid/main.js",
                 "./node_modules/@fullcalendar/interaction/main.js",
                 "./node_modules/prismjs/prism.js",
-                "./node_modules/prismjs/components/prism-typescript.js"
+                "./node_modules/prismjs/components/prism-typescript.js",
+                "./node_modules/element-closest/browser.js"
               ]
             },
             "configurations": {
