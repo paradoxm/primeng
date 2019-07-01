@@ -105,7 +105,14 @@ export class MultiSelectItem {
                         <span class="pi pi-times"></span>
                     </a>
                 </div>
-                <div class="ui-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
+                
+                <ng-container *ngIf="listWrapperTemplate; else listWrapper">
+                    <ng-container
+                        *ngTemplateOutlet="listWrapperTemplate; context: {$implicit: listWrapper}"></ng-container>
+                </ng-container>
+                
+                <ng-template #listWrapper>
+                    <div class="ui-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : (scrollHeight||'auto')">
                     <ul class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset">
                         <ng-container *ngIf="!virtualScroll; else virtualScrollList">
                             <ng-template ngFor let-option let-i="index" [ngForOf]="options">
@@ -124,6 +131,8 @@ export class MultiSelectItem {
                         <li *ngIf="filter && visibleOptions && visibleOptions.length === 0" class="ui-multiselect-empty-message">{{emptyFilterMessage}}</li>
                     </ul>
                 </div>
+                </ng-template>
+                
                 <div class="ui-multiselect-footer ui-widget-content" *ngIf="footerFacet">
                     <ng-content select="p-footer"></ng-content>
                 </div>
@@ -240,6 +249,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
     
     @Output() onChange: EventEmitter<any> = new EventEmitter();
+
+    @Output() onFilterChange: EventEmitter<string> = new EventEmitter();
     
     @Output() onFocus: EventEmitter<any> = new EventEmitter();
 
@@ -276,7 +287,9 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     public visibleOptions: SelectItem[];
     
     public filtered: boolean;
-    
+
+    listWrapperTemplate: TemplateRef<any>;
+
     public itemTemplate: TemplateRef<any>;
     
     public selectedItemsTemplate: TemplateRef<any>;
@@ -313,6 +326,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch(item.getType()) {
+                case 'listWrapper':
+                    this.listWrapperTemplate = item.template;
+                break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                 break;
@@ -718,6 +735,8 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
             this.visibleOptions = this.options;
             this.filtered = false;
         }
+
+        this.onFilterChange.emit(inputValue);
     }
     
     activateFilter() {
