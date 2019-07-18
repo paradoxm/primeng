@@ -79,12 +79,23 @@
 }
 
 .ui-dropdown-panel .ui-dropdown-item {
+    margin: 0;
+    padding: 0;
+}
+
+.ui-dropdown-panel .ui-dropdown-option {
     font-weight: normal;
     border: 0 none;
     cursor: pointer;
     margin: 1px 0;
     padding: .125em .25em;
     text-align: left;
+}
+
+.ui-dropdown-panel .ui-dropdown-item .ui-group-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .ui-dropdown-panel .ui-dropdown-empty-message {

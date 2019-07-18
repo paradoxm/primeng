@@ -88,7 +88,7 @@ export class ObjectUtils {
         return !!(obj && obj.constructor && obj.call && obj.apply);
     }
 
-    public static filter(value: any[], fields: any[], filterValue: string) {
+    public static filter(value: any[], fields: any[], filterValue: string, filter = (item) => false) {
         let filteredItems: any[] = [];
         let filterText = this.removeAccents(filterValue).toLowerCase();
 
@@ -96,7 +96,7 @@ export class ObjectUtils {
             for(let item of value) {
                 for(let field of fields) {
                     let fieldValue = this.removeAccents(String(this.resolveFieldData(item, field))).toLowerCase();
-                    if(fieldValue.indexOf(filterText) > -1) {
+                    if(fieldValue.indexOf(filterText) > -1 || filter(item)) {
                         filteredItems.push(item);
                         break;
                     }
@@ -118,12 +118,20 @@ export class ObjectUtils {
         }
     }
 
-    public static generateSelectItems(val: any[], field: string): SelectItem[] {
+    public static generateSelectItems(val: any[], field: string, optionChildrenName?: string): SelectItem[] {
         let selectItems: SelectItem[];
-        if(val && val.length) {
+
+        if (val && val.length) {
             selectItems = [];
-            for(let item of val) {
-                selectItems.push({label: this.resolveFieldData(item, field), value: item});
+            for (let item of val) {
+                item = optionChildrenName && item[optionChildrenName]
+                ? { ...item, [optionChildrenName]: this.generateSelectItems(item[optionChildrenName], field) }
+                : item;
+
+                selectItems.push({
+                    label: this.resolveFieldData(item, field),
+                    value: item
+                });
             }
         }
 

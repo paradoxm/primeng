@@ -21,7 +21,7 @@ export class DropdownDemo {
     selectedCar1: string;
 
     selectedCar2: string = 'BMW';
-    
+
     selectedCar3: string;
 
     groupedCars: SelectItemGroup[];
@@ -59,7 +59,7 @@ export class DropdownDemo {
 
         this.groupedCars = [
             {
-                label: 'Germany', value: 'germany.png', 
+                label: 'Germany', value: 'germany.png',
                 items: [
                     {label: 'Audi', value: 'Audi'},
                     {label: 'BMW', value: 'BMW'},
@@ -68,7 +68,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'USA', value: 'usa.png', 
+                label: 'USA', value: 'usa.png',
                 items: [
                     {label: 'Cadillac', value: 'Cadillac'},
                     {label: 'Ford', value: 'Ford'},
@@ -76,7 +76,7 @@ export class DropdownDemo {
                 ]
             },
             {
-                label: 'Japan', value: 'japan.png', 
+                label: 'Japan', value: 'japan.png',
                 items: [
                     {label: 'Honda', value: 'Honda'},
                     {label: 'Mazda', value: 'Mazda'},

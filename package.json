@@ -1,6 +1,6 @@
 {
-  "name": "primeng",
-  "version": "8.0.1-SNAPSHOT",
+  "name": "primeng-px",
+  "version": "8.0.44",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -8,7 +8,12 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-components": "ngc -p tsconfig-release.json",
+    "build-assets": "gulp build-assets",
+    "build-exports": "gulp build-exports",
+    "build-clean": "gulp clean",
+    "build-redistribute": "npm run build-clean && npm run build-components && npm run build-assets"
   },
   "repository": {
     "type": "git",
