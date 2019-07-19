@@ -1,70 +1,131 @@
 <div class="content-section introduction">
     <div>
         <span class="feature-title">Dropdown</span>
-        <span>Dropdown is used to select an item from a collection of options. Custom content support and filtering are the notable features.</span>
+        <span
+            >Dropdown is used to select an item from a collection of options.
+            Custom content support and filtering are the notable features.</span
+        >
     </div>
 </div>
 
 <div class="content-section implementation">
     <h3 class="first">Single</h3>
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
+    <p-dropdown
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        placeholder="Select a City"
+        optionLabel="name"
+        [showClear]="true"
+    ></p-dropdown>
     <p>Selected City: {{selectedCity ? selectedCity.name : 'none'}}</p>
-    
+
     <h3>Editable</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar1" editable="true" placeholder="Select a Brand" dataKey="value"></p-dropdown>
+    <p-dropdown
+        [options]="cars"
+        [(ngModel)]="selectedCar1"
+        editable="true"
+        placeholder="Select a Brand"
+        dataKey="value"
+    ></p-dropdown>
     <p>Selected Car: {{selectedCar1 || 'none'}}</p>
-    
+
     <h3>Content with Filters</h3>
-    <p-dropdown [options]="cars" [(ngModel)]="selectedCar2" filter="true" dataKey="value">
+    <p-dropdown
+        [options]="cars"
+        [(ngModel)]="selectedCar2"
+        filter="true"
+        dataKey="value"
+    >
         <ng-template let-item pTemplate="selectedItem">
-            <img src="assets/showcase/images/demo/car/{{item.label}}.png" style="width:16px;vertical-align:middle" />
-            <span style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+            <img
+                src="assets/showcase/images/demo/car/{{item.label}}.png"
+                style="width:16px;vertical-align:middle"
+            />
+            <span style="vertical-align:middle; margin-left: .5em"
+                >{{item.label}}</span
+            >
         </ng-template>
         <ng-template let-car pTemplate="item">
-            <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
-                <img src="assets/showcase/images/demo/car/{{car.label}}.png" style="width:24px;position:absolute;top:1px;left:5px"/>
-                <div style="font-size:14px;float:right;margin-top:4px">{{car.label}}</div>
+            <div
+                class="ui-helper-clearfix"
+                style="position: relative;height: 25px;"
+            >
+                <img
+                    src="assets/showcase/images/demo/car/{{car.label}}.png"
+                    style="width:24px;position:absolute;top:1px;left:5px"
+                />
+                <div style="font-size:14px;float:right;margin-top:4px">
+                    {{car.label}}
+                </div>
             </div>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar2 || 'none'}}</p>
 
     <h3>Group</h3>
-    <p-dropdown [options]="groupedCars" idKey="value" [filter]="true" [(ngModel)]="selectedCar3" placeholder="Select a Car" dataKey="value" [group]="true">
+    <p-dropdown
+        [options]="groupedCars"
+        [filter]="true"
+        [(ngModel)]="selectedCar3"
+        placeholder="Select a Car"
+        [group]="true"
+    >
         <ng-template let-group pTemplate="group">
-            <img src="assets/showcase/images/demo/flag/{{group.value}}" style="width:20px;vertical-align:middle" />
+            <img
+                src="assets/showcase/images/demo/flag/{{group.value}}"
+                style="width:20px;vertical-align:middle"
+            />
             <span style="margin-left:.25em">{{group.label}}</span>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
 
     <h3>Virtual Scroll (10000 Items)</h3>
-    <p-dropdown [options]="items" [(ngModel)]="item" placeholder="Select Item" [virtualScroll]="true" [itemSize]="31" [filter]="false"></p-dropdown>
+    <p-dropdown
+        [options]="items"
+        [(ngModel)]="item"
+        placeholder="Select Item"
+        [virtualScroll]="true"
+        [itemSize]="31"
+        [filter]="false"
+    ></p-dropdown>
 </div>
 
 <div class="content-section documentation">
     <p-tabView effect="fade">
         <p-tabPanel header="Documentation">
             <h3>CDK</h3>
-            <p>VirtualScrolling enabled Dropdown depends on @angular/cdk's ScrollingModule so begin with installing CDK if not already installed.</p>
-<pre>
+            <p>
+                VirtualScrolling enabled Dropdown depends on @angular/cdk's
+                ScrollingModule so begin with installing CDK if not already
+                installed.
+            </p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 npm install @angular/cdk --save
 </code>
 </pre>
 
             <h3>Import</h3>
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;DropdownModule&#125; from 'primeng/dropdown';
 </code>
 </pre>
 
             <h3>Getting Started</h3>
-            <p>Dropdown requires a value to bind and a collection of options. There are two alternatives of how to define the options property; one way is providing a collection of SelectItem
-            instances whereas other way is providing an array of arbitrary objects along with the optionLabel property to specify the field name of the option. SelectItem API is designed to have more control on how 
-            the options are displayed such as grouping and disabling however in most cases an arbitrary object collection will suffice. Example below demonstrates both cases.</p>
-<pre>
+            <p>
+                Dropdown requires a value to bind and a collection of options.
+                There are two alternatives of how to define the options
+                property; one way is providing a collection of SelectItem
+                instances whereas other way is providing an array of arbitrary
+                objects along with the optionLabel property to specify the field
+                name of the option. SelectItem API is designed to have more
+                control on how the options are displayed such as grouping and
+                disabling however in most cases an arbitrary object collection
+                will suffice. Example below demonstrates both cases.
+            </p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities1" [(ngModel)]="selectedCity1"&gt;&lt;/p-dropdown&gt;
 
@@ -72,7 +133,7 @@ import &#123;DropdownModule&#125; from 'primeng/dropdown';
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 
@@ -84,11 +145,11 @@ interface City &#123;
 export class MyModel &#123;
 
     cities1: SelectItem[];
-    
+
     cities2: City[];
 
     selectedCity1: City;
-    
+
     selectedCity2: City;
 
     constructor() &#123;
@@ -101,7 +162,7 @@ export class MyModel &#123;
             &#123;label:'Istanbul', value:&#123;id:4, name: 'Istanbul', code: 'IST'&#125;&#125;,
             &#123;label:'Paris', value:&#123;id:5, name: 'Paris', code: 'PRS'&#125;&#125;
         ];
-        
+
         //An array of cities
         this.cities2 = [
             &#123;name: 'New York', code: 'NY'&#125;,
@@ -118,16 +179,21 @@ export class MyModel &#123;
 
             <h3>Model Driven Forms</h3>
             <p>Dropdown can be used in a model driven form as well.</p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" formControlName="selectedCity"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
             <h3>Filtering</h3>
-            <p>Options can be filtered using an input field in the overlay by enabling the filter property. By default filtering is done against
-                label of the SelectItem and filterBy property is available to choose one or more properties of the SelectItem API.</p>
-<pre>
+            <p>
+                Options can be filtered using an input field in the overlay by
+                enabling the filter property. By default filtering is done
+                against label of the SelectItem and filterBy property is
+                available to choose one or more properties of the SelectItem
+                API.
+            </p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true"&gt;&lt;/p-dropdown&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" [filter]="true" filterBy="label,value.name"&gt;&lt;/p-dropdown&gt;
@@ -135,21 +201,24 @@ export class MyModel &#123;
 </pre>
 
             <h3>Grouping</h3>
-            <p>Displaying options as grouped is enabled by providing a collection of SelectItemGroup instances and setting group property to true.</p>
-<pre>
+            <p>
+                Displaying options as grouped is enabled by providing a
+                collection of SelectItemGroup instances and setting group
+                property to true.
+            </p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
-
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 import &#123;SelectItemGroup&#125; from 'primeng/api';
 
 export class GroupDemo &#123;
-    
+
     selectedCar: string;
 
     groupedCars: SelectItemGroup[];
@@ -157,7 +226,7 @@ export class GroupDemo &#123;
     constructor() &#123;
         this.groupedCars = [
             &#123;
-                label: 'Germany', 
+                label: 'Germany',
                 items: [
                     &#123;label: 'Audi', value: 'Audi'&#125;,
                     &#123;label: 'BMW', value: 'BMW'&#125;,
@@ -165,7 +234,7 @@ export class GroupDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', 
+                label: 'USA',
                 items: [
                     &#123;label: 'Cadillac', value: 'Cadillac'&#125;,
                     &#123;label: 'Ford', value: 'Ford'&#125;,
@@ -173,7 +242,7 @@ export class GroupDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', 
+                label: 'Japan',
                 items: [
                     &#123;label: 'Honda', value: 'Honda'&#125;,
                     &#123;label: 'Mazda', value: 'Mazda'&#125;,
@@ -187,30 +256,41 @@ export class GroupDemo &#123;
 </pre>
 
             <h3>Disabled Options</h3>
-            <p>Particular options can be prevented from selection using the disabled property of SelectItem API.</p>
+            <p>
+                Particular options can be prevented from selection using the
+                disabled property of SelectItem API.
+            </p>
 
             <h3>Custom Content</h3>
-            <p>Both the selected option and the options list can be templated to provide customization on the default behavior which is displaying label property of an option. Use
-                "selectedItem" template to customize the selected label display and the "item" template to change the content of the options in the dropdown panel. In addition when grouping is enabled, "group" template is available 
-                to customize the option groups. All templates get the option instance as the default local template variable. If the options are custom objects not SelectItem instances, use value property to access the custom object.
+            <p>
+                Both the selected option and the options list can be templated
+                to provide customization on the default behavior which is
+                displaying label property of an option. Use "selectedItem"
+                template to customize the selected label display and the "item"
+                template to change the content of the options in the dropdown
+                panel. In addition when grouping is enabled, "group" template is
+                available to customize the option groups. All templates get the
+                option instance as the default local template variable. If the
+                options are custom objects not SelectItem instances, use value
+                property to access the custom object.
             </p>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [style]="&#123;'width':'150px'&#125;"&gt;
-     &lt;ng-template let-item pTemplate="selectedItem"&gt; 
-        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt; 
+     &lt;ng-template let-item pTemplate="selectedItem"&gt;
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;item.label&#125;&#125;.png" style="width:16px;vertical-align:middle" /&gt;
         &lt;span style="vertical-align:middle"&gt;&#123;&#123;item.label&#125;&#125;&lt;/span&gt;
-    &lt;/ng-template&gt; 
-    &lt;ng-template let-car pTemplate="item"&gt; 
+    &lt;/ng-template&gt;
+    &lt;ng-template let-car pTemplate="item"&gt;
         &lt;div class="ui-helper-clearfix" style="position: relative;height:25px;"&gt;
-        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt; 
+        &lt;img src="assets/showcase/images/demo/car/&#123;&#123;car.label&#125;&#125;.png" style="width:24px;position:absolute;top:1px;left:5px"/&gt;
         &lt;div style="font-size:14px;float:right;margin-top:4px"&gt;&#123;&#123;car.label&#125;&#125;&lt;/div&gt; &lt;/div&gt;
     &lt;/ng-template&gt;
 &lt;/p-dropdown&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 import &#123;SelectItem&#125; from 'primeng/api';
 
@@ -239,8 +319,14 @@ export class MyModel &#123;
 </pre>
 
             <h3>Virtual Scrolling</h3>
-            <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling
-                to avoid performance issues. Usage is simple as setting virtualScroll property to true and defining itemSize to specify the height of an item. </p>
+            <p>
+                VirtualScrolling is an efficient way of rendering the options by
+                displaying a small subset of data in the viewport at any time.
+                When dealing with huge number of options, it is suggested to
+                enable VirtualScrolling to avoid performance issues. Usage is
+                simple as setting virtualScroll property to true and defining
+                itemSize to specify the height of an item.
+            </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cities" [virtualScroll]="true" itemSize="30"&gt;&lt;/p-dropdown&gt;
@@ -248,9 +334,12 @@ export class MyModel &#123;
 </pre>
 
             <h3>Animation Configuration</h3>
-            <p>Transition of the open and hide animations can be customized using the showTransitionOptions and hideTransitionOptions properties, 
-                example below disables the animations altogether.</p>
-<pre>
+            <p>
+                Transition of the open and hide animations can be customized
+                using the showTransitionOptions and hideTransitionOptions
+                properties, example below disables the animations altogether.
+            </p>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown [options]="cars" [(ngModel)]="selectedCar" [showTransitionOptions]="'0ms'" [hideTransitionOptions]="'0ms'"&gt;&lt;/p-dropdown&gt;
 </code>
@@ -271,13 +360,20 @@ export class MyModel &#123;
                             <td>options</td>
                             <td>array</td>
                             <td>null</td>
-                            <td>An array of objects to display as the available options.</td>
+                            <td>
+                                An array of objects to display as the available
+                                options.
+                            </td>
                         </tr>
                         <tr>
                             <td>optionLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Name of the label field of an option when an arbitrary objects instead of SelectItems are used as options.</td>
+                            <td>
+                                Name of the label field of an option when an
+                                arbitrary objects instead of SelectItems are
+                                used as options.
+                            </td>
                         </tr>
                         <tr>
                             <td>name</td>
@@ -289,7 +385,10 @@ export class MyModel &#123;
                             <td>scrollHeight</td>
                             <td>string</td>
                             <td>200px</td>
-                            <td>Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.</td>
+                            <td>
+                                Height of the viewport in pixels, a scrollbar is
+                                defined if height of list exceeds this value.
+                            </td>
                         </tr>
                         <tr>
                             <td>style</td>
@@ -319,49 +418,76 @@ export class MyModel &#123;
                             <td>filter</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When specified, displays an input field to filter the items on keyup.</td>
+                            <td>
+                                When specified, displays an input field to
+                                filter the items on keyup.
+                            </td>
                         </tr>
                         <tr>
                             <td>filterBy</td>
                             <td>string</td>
                             <td>label</td>
-                            <td>When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.</td>
+                            <td>
+                                When filtering is enabled, filterBy decides
+                                which field or fields (comma separated) to
+                                search against.
+                            </td>
                         </tr>
                         <tr>
                             <td>filterPlaceholder</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Placeholder text to show when filter input is empty.</td>
+                            <td>
+                                Placeholder text to show when filter input is
+                                empty.
+                            </td>
                         </tr>
                         <tr>
                             <td>required</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, it specifies that an input field must be filled out before submitting the form.</td>
+                            <td>
+                                When present, it specifies that an input field
+                                must be filled out before submitting the form.
+                            </td>
                         </tr>
                         <tr>
                             <td>disabled</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, it specifies that the component should be disabled.</td>
+                            <td>
+                                When present, it specifies that the component
+                                should be disabled.
+                            </td>
                         </tr>
                         <tr>
                             <td>readonly</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, it specifies that the component cannot be edited.</td>
+                            <td>
+                                When present, it specifies that the component
+                                cannot be edited.
+                            </td>
                         </tr>
                         <tr>
                             <td>editable</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, custom value instead of predefined options can be entered using the editable input field.</td>
+                            <td>
+                                When present, custom value instead of predefined
+                                options can be entered using the editable input
+                                field.
+                            </td>
                         </tr>
                         <tr>
                             <td>appendTo</td>
                             <td>any</td>
                             <td>null</td>
-                            <td>Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element.</td>
+                            <td>
+                                Target element to attach the overlay, valid
+                                values are "body" or a local ng-template
+                                variable of another element.
+                            </td>
                         </tr>
                         <tr>
                             <td>tabindex</td>
@@ -373,7 +499,10 @@ export class MyModel &#123;
                             <td>placeholder</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Default text to display when no option is selected.</td>
+                            <td>
+                                Default text to display when no option is
+                                selected.
+                            </td>
                         </tr>
                         <tr>
                             <td>inputId</td>
@@ -391,19 +520,28 @@ export class MyModel &#123;
                             <td>dataKey</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>A property to uniquely identify a value in options.</td>
+                            <td>
+                                A property to uniquely identify a value in
+                                options.
+                            </td>
                         </tr>
                         <tr>
                             <td>autofocus</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When present, it specifies that the component should automatically get focus on load.</td>
+                            <td>
+                                When present, it specifies that the component
+                                should automatically get focus on load.
+                            </td>
                         </tr>
                         <tr>
                             <td>resetFilterOnHide</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Clears the filter value when hiding the dropdown.</td>
+                            <td>
+                                Clears the filter value when hiding the
+                                dropdown.
+                            </td>
                         </tr>
                         <tr>
                             <td>dropdownIcon</td>
@@ -415,25 +553,37 @@ export class MyModel &#123;
                             <td>emptyFilterMessage</td>
                             <td>string</td>
                             <td>No results found</td>
-                            <td>Text to display when filtering does not return any results.</td>
+                            <td>
+                                Text to display when filtering does not return
+                                any results.
+                            </td>
                         </tr>
                         <tr>
                             <td>autoDisplayFirst</td>
                             <td>boolean</td>
                             <td>true</td>
-                            <td>Whether to display the first item as the label if no placeholder is defined and value is null.</td>
+                            <td>
+                                Whether to display the first item as the label
+                                if no placeholder is defined and value is null.
+                            </td>
                         </tr>
                         <tr>
                             <td>group</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>Whether to display options as grouped when nested options are provided.</td>
+                            <td>
+                                Whether to display options as grouped when
+                                nested options are provided.
+                            </td>
                         </tr>
                         <tr>
                             <td>showClear</td>
                             <td>boolean</td>
                             <td>false</td>
-                            <td>When enabled, a clear icon is displayed to clear the value.</td>
+                            <td>
+                                When enabled, a clear icon is displayed to clear
+                                the value.
+                            </td>
                         </tr>
                         <tr>
                             <td>baseZIndex</td>
@@ -463,7 +613,9 @@ export class MyModel &#123;
                             <td>ariaFilterLabel</td>
                             <td>string</td>
                             <td>null</td>
-                            <td>Defines a string that labels the filter input.</td>
+                            <td>
+                                Defines a string that labels the filter input.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -473,49 +625,65 @@ export class MyModel &#123;
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Parameters</th>
-                        <th>Description</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parameters</th>
+                            <th>Description</th>
+                        </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>onClick</td>
                             <td>event: Click event</td>
-                            <td>Callback to invoke when component is clicked.</td>
+                            <td>
+                                Callback to invoke when component is clicked.
+                            </td>
                         </tr>
                         <tr>
                             <td>onChange</td>
-                            <td>event.originalEvent: Browser event<br />
+                            <td>
+                                event.originalEvent: Browser event<br />
                                 event.value: Selected option value
                             </td>
-                            <td>Callback to invoke when value of dropdown changes.</td>
+                            <td>
+                                Callback to invoke when value of dropdown
+                                changes.
+                            </td>
                         </tr>
                         <tr>
                             <td>onFocus</td>
                             <td>event: Browser event</td>
-                            <td>Callback to invoke when dropdown gets focus.</td>
+                            <td>
+                                Callback to invoke when dropdown gets focus.
+                            </td>
                         </tr>
                         <tr>
                             <td>onBlur</td>
                             <td>event: Browser event</td>
-                            <td>Callback to invoke when dropdown loses focus.</td>
+                            <td>
+                                Callback to invoke when dropdown loses focus.
+                            </td>
                         </tr>
                         <tr>
                             <td>onShow</td>
                             <td>event: Animation event</td>
-                            <td>Callback to invoke when dropdown overlay gets visible.</td>
+                            <td>
+                                Callback to invoke when dropdown overlay gets
+                                visible.
+                            </td>
                         </tr>
                         <tr>
                             <td>onHide</td>
                             <td>event: Animation event</td>
-                            <td>Callback to invoke when dropdown overlay gets hidden.</td>
+                            <td>
+                                Callback to invoke when dropdown overlay gets
+                                hidden.
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
+
             <h3>Methods</h3>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
@@ -540,15 +708,15 @@ export class MyModel &#123;
                     </tbody>
                 </table>
             </div>
-            
-<pre>
+
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;p-dropdown #dd [options]="cars" [(ngModel)]="selectedCar" filter="true"&gt;&lt;/p-dropdown&gt;
 &lt;button type="button" pButton label="Clear" (click)="clearFilter(dd)"&gt;&lt;/button&gt;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 clearFilter(dropdown: Dropdown) &#123;
     dropdown.resetFilter();
@@ -557,7 +725,11 @@ clearFilter(dropdown: Dropdown) &#123;
 </pre>
 
             <h3>Styling</h3>
-            <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
+            <p>
+                Following is the list of structural style classes, for theming
+                classes visit
+                <a href="#" [routerLink]="['/theming']">theming page</a>.
+            </p>
             <div class="doc-tablewrapper">
                 <table class="doc-table">
                     <thead>
@@ -577,7 +749,9 @@ clearFilter(dropdown: Dropdown) &#123;
                         </tr>
                         <tr>
                             <td>ui-dropdown-label</td>
-                            <td>Element to display label of selected option.</td>
+                            <td>
+                                Element to display label of selected option.
+                            </td>
                         </tr>
                         <tr>
                             <td>ui-dropdown-trigger</td>
@@ -620,11 +794,15 @@ clearFilter(dropdown: Dropdown) &#123;
         </p-tabPanel>
 
         <p-tabPanel header="Source">
-            <a href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dropdown" class="btn-viewsource" target="_blank">
+            <a
+                href="https://github.com/primefaces/primeng/tree/master/src/app/showcase/components/dropdown"
+                class="btn-viewsource"
+                target="_blank"
+            >
                 <i class="fa fa-github"></i>
                 <span>View on GitHub</span>
             </a>
-<pre>
+            <pre>
 <code class="language-markup" pCode ngNonBindable>
 &lt;h3 class="first"&gt;Single&lt;/h3&gt;
 &lt;p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"&gt;&lt;/p-dropdown&gt;
@@ -663,7 +841,7 @@ clearFilter(dropdown: Dropdown) &#123;
 </code>
 </pre>
 
-<pre>
+            <pre>
 <code class="language-typescript" pCode ngNonBindable>
 export class DropdownDemo &#123;
 
@@ -676,7 +854,7 @@ export class DropdownDemo &#123;
     selectedCar1: string;
 
     selectedCar2: string = 'BMW';
-    
+
     selectedCar3: string;
 
     groupedCars: SelectItemGroup[];
@@ -709,7 +887,7 @@ export class DropdownDemo &#123;
 
         this.groupedCars = [
             &#123;
-                label: 'Germany', value: 'germany.png', 
+                label: 'Germany', value: 'germany.png',
                 items: [
                     &#123;label: 'Audi', value: 'Audi'&#125;,
                     &#123;label: 'BMW', value: 'BMW'&#125;,
@@ -717,7 +895,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'USA', value: 'usa.png', 
+                label: 'USA', value: 'usa.png',
                 items: [
                     &#123;label: 'Cadillac', value: 'Cadillac'&#125;,
                     &#123;label: 'Ford', value: 'Ford'&#125;,
@@ -725,7 +903,7 @@ export class DropdownDemo &#123;
                 ]
             &#125;,
             &#123;
-                label: 'Japan', value: 'japan.png', 
+                label: 'Japan', value: 'japan.png',
                 items: [
                     &#123;label: 'Honda', value: 'Honda'&#125;,
                     &#123;label: 'Mazda', value: 'Mazda'&#125;,

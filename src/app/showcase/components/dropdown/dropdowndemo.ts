@@ -20,7 +20,7 @@ export class DropdownDemo {
 
     selectedCar1: string;
 
-    selectedCar2: string = 'BMW';
+    selectedCar2 = 'BMW';
 
     selectedCar3: string;
 

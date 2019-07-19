@@ -1351,6 +1351,7 @@ export class Dropdown
             for (let i = 0; i < opts.length; i++) {
                 if (
                     (val == null && this.getOptionId(opts[i]) == null) ||
+                    this.getOptionValue(opts[i]) === val ||
                     ObjectUtils.equals(val, opts[i], this.idKey)
                 ) {
                     index = i;
