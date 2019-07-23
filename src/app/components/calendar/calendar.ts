@@ -82,24 +82,24 @@ export interface LocaleSettings {
 
                                 <div class="ui-datepicker-dropdowns">
                                     <p-dropdown class="ui-datepicker-month-dropdown"
-                                        *ngIf="monthNavigator && (view !== 'month') && numberOfMonths === 1"
+                                        *ngIf="monthNavigator && (view !== 'month')"
                                         [(ngModel)]="months[i].month"
                                         dataKey="value"
                                         idKey="value"
                                         [options]="locale.monthOptions"
-                                        (onChange)="onMonthDropdownChange($event.value)"
+                                        (onChange)="onMonthDropdownChange($event.value, i)"
                                     >
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span class="ui-datepicker-month-item">{{item.label}}</span>
                                         </ng-template>
                                     </p-dropdown>
                                     <p-dropdown class="ui-datepicker-year-dropdown"
-                                        *ngIf="yearNavigator && numberOfMonths === 1"
-                                        [(ngModel)]="currentYear"
+                                        *ngIf="yearNavigator"
+                                        [(ngModel)]="months[i].year"
                                         dataKey="value"
                                         idKey="value"
                                         [options]="locale.yearOptions"
-                                        (onChange)="onYearDropdownChange($event.value)"
+                                        (onChange)="onYearDropdownChange($event.value, i)"
                                     >
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span class="ui-datepicker-year-item">{{item.label}}</span>
@@ -1335,14 +1335,35 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
-    onMonthDropdownChange(m: string) {
-        this.currentMonth = parseInt(m);
+    onMonthDropdownChange(m: string, i: number) {
+        const currentMonth = parseInt(m) - i;
+        if (currentMonth >= 0){
+            if (this.currentMonth + i > 11 && currentMonth + i <= 11) {
+                this.currentYear += 1;
+            }
+
+            this.currentMonth = currentMonth;
+        } else {
+            if (this.currentMonth + i <= 11 && 12 + currentMonth + i > 11) {
+                this.currentYear -= 1;
+            }
+
+            this.currentMonth = 12 + currentMonth;
+        }
+
         this.onMonthChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonths(this.currentMonth, this.currentYear);
     }
 
-    onYearDropdownChange(y: string) {
-        this.currentYear = parseInt(y);
+    onYearDropdownChange(y: string, i: number) {
+        let currentYear = parseInt(y);
+        const currentMonth = this.months[i].month;
+        if (currentMonth - i < 0) {
+            currentYear -= 1;
+        }
+
+        this.currentYear = currentYear;
+
         this.onYearChange.emit({ month: this.currentMonth + 1, year: this.currentYear });
         this.createMonths(this.currentMonth, this.currentYear);
     }
