@@ -132,6 +132,7 @@ export interface LocaleSettings {
                                         <td *ngFor="let date of week" [ngClass]="{
                                             'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),
+                                            'ui-datepicker-start-current-day':isStartSelected(date),
                                             'ui-datepicker-first-current-day':isFirstSelected(date),
                                             'ui-datepicker-last-current-day':isLastSelected(date),
                                             'ui-datepicker-today':date.today
@@ -1149,12 +1150,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    isStartSelected(dateMeta): boolean {
+        return this.value && this.isRangeSelection() && this.value[0] && !this.value[1] ? this.isDateEquals(this.value[0], dateMeta) : false;
+    }
+
     isFirstSelected(dateMeta): boolean {
-        return this.value && this.isRangeSelection() ? this.isDateEquals(this.value[0], dateMeta) : false;
+        return this.value && this.isRangeSelection() && this.value[0] && this.value[1] ? this.isDateEquals(this.value[0], dateMeta) : false;
     }
 
     isLastSelected(dateMeta): boolean {
-        return this.value && this.value[1] && this.isRangeSelection() ? this.isDateEquals(this.value[1], dateMeta) : false;
+        return this.value && this.isRangeSelection() && this.value[0] && this.value[1] ? this.isDateEquals(this.value[1], dateMeta) : false;
     }
 
     isMonthSelected(month: number): boolean {
