@@ -132,6 +132,8 @@ export interface LocaleSettings {
                                         <td *ngFor="let date of week" [ngClass]="{
                                             'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),
+                                            'ui-datepicker-range-day': (date),
+                                            'ui-datepicker-start-current-day':isStartSelected(date),
                                             'ui-datepicker-start-current-day':isStartSelected(date),
                                             'ui-datepicker-first-current-day':isFirstSelected(date),
                                             'ui-datepicker-last-current-day':isLastSelected(date),
@@ -1150,6 +1152,10 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         }
     }
 
+    inSelectedRange(dateMeta): boolean {
+        return this.value && this.isRangeSelection() && this.value[0] && this.value[1] ? this.isDateInRange(this.value[0], this.value[1], dateMeta) : false;
+    }
+
     isStartSelected(dateMeta): boolean {
         return this.value && this.isRangeSelection() && this.value[0] && !this.value[1] ? this.isDateEquals(this.value[0], dateMeta) : false;
     }
@@ -1171,6 +1177,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
         else
             return false;
+    }
+
+    isDateInRange(start, end, dateMeta) {
+        let between : boolean = false;
+        if (start && end) {
+            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            return start.getDate() <= date.getDate() && end.getDate() >= date.getDate();
+        }
+
+        return between;
     }
 
     isDateBetween(start, end, dateMeta) {
