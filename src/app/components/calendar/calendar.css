@@ -101,6 +101,21 @@
 	margin-left: .25em;
 }
 
+.ui-datepicker .ui-datepicker-title .ui-datepicker-month-dropdown {
+    display: inline-block;
+    margin: 0 5px;
+
+    vertical-align: middle;
+}
+
+.ui-datepicker .ui-datepicker-title .ui-datepicker-year-dropdown {
+    display: inline-block;
+    margin: 0 5px;
+
+
+    vertical-align: middle;
+}
+
 /* Multiple Month DatePicker */
 .ui-datepicker-multiple-month .ui-datepicker-group {
     display: table-cell;
@@ -220,6 +235,45 @@
 input[type=text]::-ms-clear {
     display: none;
 }
+
+.ui-timepicker-group .ui-timepicker > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: initial;
+    margin-left: 0;
+}
+
+.ui-timepicker-group .ui-timepicker > div > div {
+    display: inline-block;
+    margin-left: .5em;
+    min-width: 1.5em;
+}
+
+.ui-timepicker-group .ui-timepicker > div > div:last-child {
+    margin-left: 0;
+}
+
+.ui-timepicker-group .ui-timepicker .ui-separator {
+    margin-left: 0;
+    min-width: .75em;
+}
+
+.ui-timepicker-group .ui-timepicker .ui-separator a {
+    visibility: hidden;
+}
+
+.ui-timepicker-group .ui-timepicker-addtime {
+    border-top: 1px solid #d9dbe3;
+    padding: 10px 0;
+}
+
+.ui-datepicker .ui-timepicker-group .ui-timepicker {
+    border-top: none;
+    padding: 0;
+}
+
 
 /* Touch UI */
 .ui-datepicker-touch-ui,
