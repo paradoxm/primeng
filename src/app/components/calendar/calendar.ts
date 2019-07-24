@@ -145,8 +145,7 @@ export interface LocaleSettings {
                                         <td *ngFor="let date of week" [ngClass]="{
                                             'ui-datepicker-other-month': date.otherMonth,
                                             'ui-datepicker-current-day':isSelected(date),
-                                            'ui-datepicker-range-day': (date),
-                                            'ui-datepicker-start-current-day':isStartSelected(date),
+                                            'ui-datepicker-range-day': inSelectedRange(date),
                                             'ui-datepicker-start-current-day':isStartSelected(date),
                                             'ui-datepicker-first-current-day':isFirstSelected(date),
                                             'ui-datepicker-last-current-day':isLastSelected(date),
