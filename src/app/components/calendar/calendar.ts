@@ -89,6 +89,13 @@ export interface LocaleSettings {
                                         [options]="locale.monthOptions"
                                         (onChange)="onMonthDropdownChange($event.value, i)"
                                     >
+                                        
+                                        <ng-template let-template pTemplate="listWrapper" *ngIf="monthListWrapperTemplate">
+                                            <ng-container *ngTemplateOutlet="monthListWrapperTemplate; context: { $implicit: template }">
+                                                <ng-container *ngTemplateOutlet="template"></ng-container>
+                                            </ng-container>
+                                        </ng-template>
+                                        
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span class="ui-datepicker-month-item">{{item.label}}</span>
                                         </ng-template>
@@ -101,6 +108,12 @@ export interface LocaleSettings {
                                         [options]="locale.yearOptions"
                                         (onChange)="onYearDropdownChange($event.value, i)"
                                     >
+                                        <ng-template let-template pTemplate="listWrapper" *ngIf="yearListWrapperTemplate">
+                                            <ng-container *ngTemplateOutlet="yearListWrapperTemplate; context: { $implicit: template }">
+                                                <ng-container *ngTemplateOutlet="template"></ng-container>
+                                            </ng-container>
+                                        </ng-template>
+                                        
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span class="ui-datepicker-year-item">{{item.label}}</span>
                                         </ng-template>
@@ -422,6 +435,9 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
 
+    monthListWrapperTemplate: TemplateRef<any>;
+    yearListWrapperTemplate: TemplateRef<any>;
+
     _locale: LocaleSettings = {
         firstDayOfWeek: 0,
         dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -686,6 +702,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
             switch (item.getType()) {
                 case 'date':
                     this.dateTemplate = item.template;
+                break;
+
+                case 'monthListWrapper':
+                    this.monthListWrapperTemplate = item.template;
+                break;
+
+                case 'yearListWrapper':
+                    this.yearListWrapperTemplate = item.template;
                 break;
 
                 default:

@@ -73,7 +73,19 @@
 
         <div class="ui-g-12 ui-md-4">
             <h3>Multiple Months</h3>
-            <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" ></p-calendar>
+            <p-calendar [(ngModel)]="date11" [numberOfMonths]="3" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030" >
+                <ng-template let-month pTemplate="monthListWrapper">
+                  <div style="color: #1b82d7">
+                    <ng-container *ngTemplateOutlet="month"></ng-container>
+                  </div>
+                </ng-template>
+
+                <ng-template let-year pTemplate="yearListWrapper">
+                  <div style="color: #1b82d7">
+                    <ng-container *ngTemplateOutlet="year"></ng-container>
+                  </div>
+                </ng-template>
+            </p-calendar>
         </div>
 
         <div class="ui-g-12 ui-md-4">
