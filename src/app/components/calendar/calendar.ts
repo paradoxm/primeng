@@ -1183,7 +1183,7 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
         let between : boolean = false;
         if (start && end) {
             let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
-            return start.getDate() <= date.getDate() && end.getDate() >= date.getDate();
+            return start.getDate() < date.getDate() && end.getDate() > date.getDate();
         }
 
         return between;
