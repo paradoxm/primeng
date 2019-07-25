@@ -1189,12 +1189,16 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     isFirstSelected(dateMeta): boolean {
         return this.value
         && this.isRangeSelection()
+        && this.value[0]
+        && this.value[1]
         && !this.isDatesEquals(this.value[0], this.value[1]) ? this.isDateEquals(this.value[0], dateMeta) : false;
     }
 
     isLastSelected(dateMeta): boolean {
         return this.value
         && this.isRangeSelection()
+        && this.value[0]
+        && this.value[1]
         && !this.isDatesEquals(this.value[0], this.value[1]) ? this.isDateEquals(this.value[1], dateMeta) : false;
     }
 
