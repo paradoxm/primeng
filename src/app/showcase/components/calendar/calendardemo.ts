@@ -72,7 +72,7 @@ export class CalendarDemo {
         this.maxDate.setFullYear(nextYear);
         
         let invalidDate = new Date();
-        invalidDate.setDate(today.getDate() - 1);
+        invalidDate.setDate(today.getDate() - 7);
         this.invalidDates = [today,invalidDate];
     }
  }
