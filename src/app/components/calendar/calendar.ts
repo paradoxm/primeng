@@ -1180,15 +1180,22 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     }
 
     isStartSelected(dateMeta): boolean {
-        return this.value && this.isRangeSelection() && this.value[0] && !this.value[1] ? this.isDateEquals(this.value[0], dateMeta) : false;
+        return this.value
+        && this.isRangeSelection()
+        && this.value[0]
+        && (!this.value[1] || this.isDatesEquals(this.value[0], this.value[1]))? this.isDateEquals(this.value[0], dateMeta) : false;
     }
 
     isFirstSelected(dateMeta): boolean {
-        return this.value && this.isRangeSelection() && this.value[0] && this.value[1] ? this.isDateEquals(this.value[0], dateMeta) : false;
+        return this.value
+        && this.isRangeSelection()
+        && !this.isDatesEquals(this.value[0], this.value[1]) ? this.isDateEquals(this.value[0], dateMeta) : false;
     }
 
     isLastSelected(dateMeta): boolean {
-        return this.value && this.isRangeSelection() && this.value[0] && this.value[1] ? this.isDateEquals(this.value[1], dateMeta) : false;
+        return this.value
+        && this.isRangeSelection()
+        && !this.isDatesEquals(this.value[0], this.value[1]) ? this.isDateEquals(this.value[1], dateMeta) : false;
     }
 
     isMonthSelected(month: number): boolean {
@@ -1198,6 +1205,14 @@ export class Calendar implements OnInit,OnDestroy,ControlValueAccessor {
     isDateEquals(value, dateMeta) {
         if (value)
             return value.getDate() === dateMeta.day && value.getMonth() === dateMeta.month && value.getFullYear() === dateMeta.year;
+        else
+            return false;
+    }
+
+    isDatesEquals(date1, date2) {
+        if (date1 && date2) {
+            return date1.getDate() === date2.getDate() && date1.getMonth() === date2.getMonth() && date1.getFullYear() === date2.getFullYear();
+        }
         else
             return false;
     }
