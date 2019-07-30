@@ -177,6 +177,10 @@
     border-bottom-right-radius: 0px;
 }
 
+.ui-calendar-value-container {
+    display: none;
+}
+
 /* Month Picker */
 .ui-monthpicker .ui-monthpicker-month {
     width: 33.3%;

@@ -61,9 +61,15 @@ export interface LocaleSettings {
                        [ngStyle]="inputStyle" [class]="inputStyleClass"
                        [placeholder]="placeholder||''" [disabled]="disabled"
                        [attr.tabindex]="tabindex"
-                       [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all'"
+                       [ngClass]="'ui-inputtext ui-widget ui-state-default ui-corner-all ui-calendar-input'"
                        autocomplete="off"
-                ><button type="button" [icon]="icon" pButton *ngIf="showIcon"
+                >
+                <div (click)="onInputClick($event)"
+                     [ngStyle]="inputStyle"
+                     [class]="inputStyleClass"
+                     [ngClass]="'ui-calendar-value-container ui-widget ui-state-default ui-corner-all'"
+                >{{inputFieldValue || placeholder || ''}}</div>
+                <button type="button" [icon]="icon" pButton *ngIf="showIcon"
                          (click)="onButtonClick($event,inputfield)"
                          class="ui-datepicker-trigger ui-calendar-button"
                          [ngClass]="{'ui-state-disabled':disabled}" [disabled]="disabled"
