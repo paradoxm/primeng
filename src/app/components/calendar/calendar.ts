@@ -1043,7 +1043,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     let endDate = this.value[1];
 
                     formattedValue = this.formatDateTime(startDate);
-                    if (endDate) {
+                    if (endDate
+                        && startDate.getDate() !== endDate.getDate()
+                        && startDate.getYear() !== endDate.getYear()
+                        && startDate.getMonth() !== endDate.getMonth()) {
                         formattedValue += ' - ' + this.formatDateTime(endDate);
                     }
                 }
@@ -2350,14 +2353,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     onClearButtonClick(event) {
-        const needHideOverlay = !(this.availableRange[0] || this.availableRange[1]);
-
         this.updateModel(null);
         this.updateInputfield();
 
-        if (needHideOverlay) {
-            this.hideOverlay();
-        }
         this.onClearClick.emit(event);
     }
 
