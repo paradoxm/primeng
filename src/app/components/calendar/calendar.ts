@@ -1044,9 +1044,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
                     formattedValue = this.formatDateTime(startDate);
                     if (endDate
-                        && startDate.getDate() !== endDate.getDate()
-                        && startDate.getYear() !== endDate.getYear()
-                        && startDate.getMonth() !== endDate.getMonth()) {
+                        && !(startDate.getDate() === endDate.getDate()
+                             && startDate.getFullYear() === endDate.getFullYear()
+                             && startDate.getMonth() === endDate.getMonth())) {
                         formattedValue += ' - ' + this.formatDateTime(endDate);
                     }
                 }
