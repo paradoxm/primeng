@@ -630,6 +630,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     set disabledDates(disabledDates: Date[]) {
+        console.log(disabledDates);
         if (disabledDates) {
             disabledDates.sort(function (a: Date, b: Date) {
                 return a.getTime() - b.getTime();
@@ -789,6 +790,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     createMonths(month: number, year: number) {
+        this.prepareAvailableRange();
         this.months = this.months = [];
         for (let i = 0; i < this.numberOfMonths; i++) {
             let m = month + i;
@@ -1131,7 +1133,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     updateModel(value) {
         this.value = value;
 
-        this.prepareAvailableRange();
         this.createMonths(this.currentMonth, this.currentYear);
 
         if (this.dataType == 'date') {
