@@ -630,7 +630,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     set disabledDates(disabledDates: Date[]) {
-        console.log(disabledDates);
         if (disabledDates) {
             disabledDates.sort(function (a: Date, b: Date) {
                 return a.getTime() - b.getTime();
