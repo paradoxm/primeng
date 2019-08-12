@@ -708,8 +708,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             months.push({ value: index, label: item })
         });
 
+        this._locale.yearOptions.forEach((item) => {
+            years.push({ value: item, label: item })
+        });
+
+
         this._locale.monthOptions = months;
         this._locale.yearOptions = years;
+        this.yearRange = this._yearRange;
 
         if (this.view === 'date') {
             this.createWeekDays();
