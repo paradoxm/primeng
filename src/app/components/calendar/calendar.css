@@ -44,6 +44,10 @@
     position: absolute;
 }
 
+.ui-datepicker .ui-datepicker-arrow, .ui-datepicker .ui-datepicker-line {
+    display: none;
+}
+
 .ui-datepicker.ui-datepicker-inline {
     display: inline-block;
     position: static;

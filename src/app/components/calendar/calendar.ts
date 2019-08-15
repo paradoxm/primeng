@@ -83,6 +83,8 @@ export interface LocaleSettings {
                  (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                  (@overlayAnimation.done)="onOverlayAnimationDone($event)"
                  *ngIf="inline || overlayVisible">
+                 <div class="ui-datepicker-arrow"></div>
+                 <div class="ui-datepicker-line"></div>
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content"
                          *ngFor="let month of months; let i = index;">
