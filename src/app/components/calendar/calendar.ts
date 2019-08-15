@@ -112,7 +112,7 @@ export interface LocaleSettings {
                                                 [options]="locale.monthOptions"
                                                 (onChange)="onMonthDropdownChange($event.value, i)"
                                     >
-                                        
+
                                         <ng-template let-template pTemplate="listWrapper"
                                                      *ngIf="monthListWrapperTemplate">
                                             <ng-container
@@ -121,7 +121,7 @@ export interface LocaleSettings {
                                                     *ngTemplateOutlet="template"></ng-container>
                                             </ng-container>
                                         </ng-template>
-                                        
+
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span
                                                 class="ui-datepicker-month-item">{{item.label}}</span>
@@ -143,7 +143,7 @@ export interface LocaleSettings {
                                                     *ngTemplateOutlet="template"></ng-container>
                                             </ng-container>
                                         </ng-template>
-                                        
+
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span
                                                 class="ui-datepicker-year-item">{{item.label}}</span>
