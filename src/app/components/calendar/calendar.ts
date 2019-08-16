@@ -385,6 +385,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() appendTo: any;
 
+    @Input() possitionElement: any;
+
     @Input() readonlyInput: boolean;
 
     @Input() shortYearCutoff: any = '+10';
@@ -1435,7 +1437,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.showOnFocus && !this.overlayVisible) {
             this.showOverlay();
         }
-        this.updateArrowPosition()
     }
 
     onInputBlur(event: Event) {
@@ -1974,7 +1975,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.enableModality(this.overlay);
         } else {
             if (this.appendTo){
-                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                if (this.possitionElement) {
+                    DomHandler.absolutePosition(this.overlay, this.possitionElement.nativeElement);
+                } else {
+                    DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                }
                 this.updateArrowPosition()
             } else {
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
