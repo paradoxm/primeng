@@ -144,9 +144,11 @@ export class DomHandler {
 
         if (targetOffset.left + elementOuterWidth > viewport.width){
             left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
+            this.addClass(element, 'ui-position-left');
         }
         else {
             left = targetOffset.left + windowScrollLeft;
+            this.addClass(element, 'ui-position-right');
         }
 
         element.style.top = top + 'px';

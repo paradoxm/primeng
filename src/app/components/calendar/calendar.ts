@@ -551,6 +551,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlay: HTMLDivElement;
 
+    arrow: HTMLDivElement;
+
     overlayVisible: boolean;
 
     onModelChange: Function = () => {
@@ -1433,6 +1435,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.showOnFocus && !this.overlayVisible) {
             this.showOverlay();
         }
+        this.updateArrowPosition()
     }
 
     onInputBlur(event: Event) {
@@ -1881,6 +1884,26 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
+    updateArrowPosition() {
+        // distance from right side of input to calendar icon
+        const iconPosition = 15;
+        const parentElement = this.inputfieldViewChild.nativeElement.parentElement;
+
+        if (this.overlay.classList.contains('ui-position-left')) {
+            this.arrow.style.left =
+                this.overlay.getBoundingClientRect().width -
+                this.arrow.getBoundingClientRect().width / 2 -
+                iconPosition +
+                'px';
+        } else {
+            this.arrow.style.left =
+                parentElement.getBoundingClientRect().width -
+                this.arrow.getBoundingClientRect().width / 2 -
+                iconPosition +
+                'px';
+        }
+    }
+
     showOverlay() {
         if (!this.overlayVisible) {
             this.updateUI();
@@ -1902,6 +1925,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.arrow = event.element.querySelector('.ui-datepicker-arrow')
                     this.appendOverlay();
                     if (this.autoZIndex) {
                         this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -1949,10 +1973,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else {
-            if (this.appendTo)
+            if (this.appendTo){
                 DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-            else
+                this.updateArrowPosition()
+            } else {
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            }
         }
     }
 
