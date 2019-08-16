@@ -1885,10 +1885,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    updateArrowPosition() {
+    updateArrowPosition(parentElement) {
         // distance from right side of input to calendar icon
         const iconPosition = 15;
-        const parentElement = this.inputfieldViewChild.nativeElement.parentElement;
 
         if (this.overlay.classList.contains('ui-position-left')) {
             this.arrow.style.left =
@@ -1976,11 +1975,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else {
             if (this.appendTo){
                 if (this.possitionElement) {
-                    DomHandler.absolutePosition(this.overlay, this.possitionElement.nativeElement);
+                    DomHandler.absolutePosition(this.overlay, this.possitionElement);
+                    this.updateArrowPosition(this.possitionElement);
                 } else {
                     DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                    this.updateArrowPosition(this.inputfieldViewChild.nativeElement.parentElement);
                 }
-                this.updateArrowPosition()
             } else {
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
             }
