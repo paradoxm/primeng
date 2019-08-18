@@ -256,6 +256,10 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
+    @Output() onHide: EventEmitter<any> = new EventEmitter();
+
     @Output() onClick: EventEmitter<any> = new EventEmitter();
     
     @Output() onPanelShow: EventEmitter<any> = new EventEmitter();
@@ -524,9 +528,11 @@ export class MultiSelect implements OnInit,AfterViewInit,AfterContentInit,AfterV
                 this.bindDocumentClickListener();
                 this.bindDocumentResizeListener();
                 this.onPanelShow.emit();
+                this.onShow.emit(event);
             break;
 
             case 'void':
+                this.onHide.emit(event);
                 this.onOverlayHide();
             break;
         }
