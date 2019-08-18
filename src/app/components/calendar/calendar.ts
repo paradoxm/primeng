@@ -453,6 +453,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
+    @Output() onShow: EventEmitter<any> = new EventEmitter();
+
     @Output() onClose: EventEmitter<any> = new EventEmitter();
 
     @Output() onSelect: EventEmitter<any> = new EventEmitter();
@@ -1933,6 +1935,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     this.alignOverlay();
 
                 }
+                this.onShow.emit(event);
                 break;
 
             case 'void':
