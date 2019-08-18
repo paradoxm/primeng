@@ -71,7 +71,7 @@ export class DomHandler {
         }
         return -1;
     }
-    
+
     public static indexWithinGroup(element: any, attributeName: string): number {
         let children = element.parentNode.childNodes;
         let num = 0;
@@ -94,9 +94,11 @@ export class DomHandler {
             if (targetOffset.top + top < 0) {
                 top = -1 * targetOffset.top;
             }
+            this.addClass(element, 'ui-position-top')
         }
         else {
             top = targetHeight;
+            this.addClass(element, 'ui-position-bottom')
         }
 
         if (elementDimensions.width > viewport.width) {
@@ -133,15 +135,21 @@ export class DomHandler {
             if(top < 0) {
                 top = windowScrollTop;
             }
-        } 
+            this.addClass(element, 'ui-position-top')
+        }
         else {
             top = targetOuterHeight + targetOffset.top + windowScrollTop;
+            this.addClass(element, 'ui-position-bottom')
         }
 
-        if (targetOffset.left + elementOuterWidth > viewport.width)
+        if (targetOffset.left + elementOuterWidth > viewport.width){
             left = Math.max(0, targetOffset.left + windowScrollLeft + targetOuterWidth - elementOuterWidth);
-        else
+            this.addClass(element, 'ui-position-left');
+        }
+        else {
             left = targetOffset.left + windowScrollLeft;
+            this.addClass(element, 'ui-position-right');
+        }
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
@@ -230,7 +238,7 @@ export class DomHandler {
                 opacity = 0;
                 clearInterval(fading);
             }
-            
+
             element.style.opacity = opacity;
         }, interval);
     }
@@ -289,7 +297,7 @@ export class DomHandler {
         width -= parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
         return width;
     }
-    
+
     public static getInnerHeight(el) {
         let height = el.offsetHeight;
         let style = getComputedStyle(el);
@@ -337,10 +345,10 @@ export class DomHandler {
 
         return { width: w, height: h };
     }
-    
+
     public static getOffset(el) {
         let rect = el.getBoundingClientRect();
-        
+
         return {
             top: rect.top + document.body.scrollTop,
             left: rect.left + document.body.scrollLeft
@@ -349,7 +357,7 @@ export class DomHandler {
 
     public static replaceElementWith(element: any, replacementElement: any): any {
         let parentNode = element.parentNode;
-        if(!parentNode) 
+        if(!parentNode)
             throw `Can't replace element`;
         return parentNode.replaceChild(replacementElement, element);
     }
@@ -391,7 +399,7 @@ export class DomHandler {
     public static isAndroid() {
         return /(android)/i.test(navigator.userAgent);
     }
-     
+
     public static appendChild(element: any, target: any) {
         if(this.isElement(target))
             target.appendChild(element);
@@ -400,7 +408,7 @@ export class DomHandler {
         else
             throw 'Cannot append ' + target + ' to ' + element;
     }
-    
+
     public static removeChild(element: any, target: any) {
         if(this.isElement(target))
             target.removeChild(element);
@@ -409,13 +417,13 @@ export class DomHandler {
         else
             throw 'Cannot remove ' + element + ' from ' + target;
     }
-    
+
     public static isElement(obj: any) {
         return (typeof HTMLElement === "object" ? obj instanceof HTMLElement :
             obj && typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string"
         );
     }
-    
+
     public static calculateScrollbarWidth(el?: HTMLElement): number {
         if (el) {
             let style = getComputedStyle(el);
@@ -424,7 +432,7 @@ export class DomHandler {
         else {
             if(this.calculatedScrollbarWidth !== null)
                 return this.calculatedScrollbarWidth;
-            
+
             let scrollDiv = document.createElement("div");
             scrollDiv.className = "ui-scrollbar-measure";
             document.body.appendChild(scrollDiv);
@@ -433,7 +441,7 @@ export class DomHandler {
             document.body.removeChild(scrollDiv);
 
             this.calculatedScrollbarWidth = scrollbarWidth;
-            
+
             return scrollbarWidth;
         }
     }
@@ -441,7 +449,7 @@ export class DomHandler {
     public static calculateScrollbarHeight(): number {
         if(this.calculatedScrollbarHeight !== null)
             return this.calculatedScrollbarHeight;
-        
+
         let scrollDiv = document.createElement("div");
         scrollDiv.className = "ui-scrollbar-measure";
         document.body.appendChild(scrollDiv);
@@ -450,14 +458,14 @@ export class DomHandler {
         document.body.removeChild(scrollDiv);
 
         this.calculatedScrollbarWidth = scrollbarHeight;
-        
+
         return scrollbarHeight;
     }
-    
+
     public static invokeElementMethod(element: any, methodName: string, args?: any[]): void {
         (element as any)[methodName].apply(element, args);
     }
-    
+
     public static clearSelection(): void {
         if(window.getSelection) {
             if(window.getSelection().empty) {
@@ -524,10 +532,10 @@ export class DomHandler {
     }
 
     public static getFocusableElements(element:HTMLElement) {
-        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), 
+        let focusableElements = DomHandler.find(element,`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
                 [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])`
             );
 

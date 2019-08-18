@@ -83,6 +83,8 @@ export interface LocaleSettings {
                  (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                  (@overlayAnimation.done)="onOverlayAnimationDone($event)"
                  *ngIf="inline || overlayVisible">
+                 <div class="ui-datepicker-arrow"></div>
+                 <div class="ui-datepicker-line"></div>
                 <ng-container *ngIf="!timeOnly">
                     <div class="ui-datepicker-group ui-widget-content"
                          *ngFor="let month of months; let i = index;">
@@ -112,7 +114,7 @@ export interface LocaleSettings {
                                                 [options]="locale.monthOptions"
                                                 (onChange)="onMonthDropdownChange($event.value, i)"
                                     >
-                                        
+
                                         <ng-template let-template pTemplate="listWrapper"
                                                      *ngIf="monthListWrapperTemplate">
                                             <ng-container
@@ -121,7 +123,7 @@ export interface LocaleSettings {
                                                     *ngTemplateOutlet="template"></ng-container>
                                             </ng-container>
                                         </ng-template>
-                                        
+
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span
                                                 class="ui-datepicker-month-item">{{item.label}}</span>
@@ -143,7 +145,7 @@ export interface LocaleSettings {
                                                     *ngTemplateOutlet="template"></ng-container>
                                             </ng-container>
                                         </ng-template>
-                                        
+
                                         <ng-template let-item pTemplate="selectedItem">
                                             <span
                                                 class="ui-datepicker-year-item">{{item.label}}</span>
@@ -383,6 +385,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     @Input() appendTo: any;
 
+    @Input() possitionElement: any;
+
     @Input() readonlyInput: boolean;
 
     @Input() shortYearCutoff: any = '+10';
@@ -549,6 +553,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlay: HTMLDivElement;
 
+    arrow: HTMLDivElement;
+
     overlayVisible: boolean;
 
     onModelChange: Function = () => {
@@ -708,8 +714,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             months.push({ value: index, label: item })
         });
 
+        this._locale.yearOptions.forEach((item) => {
+            years.push({ value: item, label: item })
+        });
+
+
         this._locale.monthOptions = months;
         this._locale.yearOptions = years;
+        this.yearRange = this._yearRange;
 
         if (this.view === 'date') {
             this.createWeekDays();
@@ -1873,6 +1885,25 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
+    updateArrowPosition(parentElement) {
+        // distance from right side of input to calendar icon
+        const iconPosition = 15;
+
+        if (this.overlay.classList.contains('ui-position-left')) {
+            this.arrow.style.left =
+                this.overlay.getBoundingClientRect().width -
+                this.arrow.getBoundingClientRect().width / 2 -
+                iconPosition +
+                'px';
+        } else {
+            this.arrow.style.left =
+                parentElement.getBoundingClientRect().width -
+                this.arrow.getBoundingClientRect().width / 2 -
+                iconPosition +
+                'px';
+        }
+    }
+
     showOverlay() {
         if (!this.overlayVisible) {
             this.updateUI();
@@ -1894,6 +1925,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             case 'visibleTouchUI':
                 if (!this.inline) {
                     this.overlay = event.element;
+                    this.arrow = event.element.querySelector('.ui-datepicker-arrow')
                     this.appendOverlay();
                     if (this.autoZIndex) {
                         this.overlay.style.zIndex = String(this.baseZIndex + (++DomHandler.zindex));
@@ -1941,10 +1973,17 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.touchUI) {
             this.enableModality(this.overlay);
         } else {
-            if (this.appendTo)
-                DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-            else
+            if (this.appendTo){
+                if (this.possitionElement) {
+                    DomHandler.absolutePosition(this.overlay, this.possitionElement);
+                    this.updateArrowPosition(this.possitionElement);
+                } else {
+                    DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+                    this.updateArrowPosition(this.inputfieldViewChild.nativeElement.parentElement);
+                }
+            } else {
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            }
         }
     }
 
