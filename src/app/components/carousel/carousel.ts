@@ -366,6 +366,7 @@ export class Carousel implements AfterViewChecked, AfterViewInit, OnDestroy {
                 (DomHandler.innerWidth(this.viewportViewChild.nativeElement) *
                     this.page);
             this.firstVisible = this.page * this.columns;
+            this.cd.detectChanges();
             this.onPage.emit({
                 page: this.page
             });
