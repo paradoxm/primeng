@@ -349,6 +349,7 @@ export interface LocaleSettings {
     host: {
         '[class.ui-inputwrapper-filled]': 'filled',
         '[class.ui-inputwrapper-focus]': 'focus',
+        '[class.ui-inputwrapper-opened]': 'overlayVisible',
     },
     providers: [CALENDAR_VALUE_ACCESSOR],
 })
@@ -1910,6 +1911,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.overlayVisible) {
             this.updateUI();
             this.overlayVisible = true;
+            this.onShow.emit(event);
         }
     }
 
@@ -1919,6 +1921,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.touchUI) {
             this.disableModality();
         }
+        this.onClose.emit(event);
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -1935,12 +1938,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     this.alignOverlay();
 
                 }
-                this.onShow.emit(event);
                 break;
 
             case 'void':
                 this.onOverlayHide();
-                this.onClose.emit(event);
                 break;
         }
     }
