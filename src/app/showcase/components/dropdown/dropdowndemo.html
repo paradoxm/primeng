@@ -68,14 +68,17 @@
         [filter]="true"
         [(ngModel)]="selectedCar3"
         placeholder="Select a Car"
-        [group]="true"
     >
-        <ng-template let-group pTemplate="group">
+        <ng-template let-option pTemplate="group">
             <img
-                src="assets/showcase/images/demo/flag/{{group.value}}"
+                src="assets/showcase/images/demo/flag/{{option.value}}"
                 style="width:20px;vertical-align:middle"
             />
-            <span style="margin-left:.25em">{{group.label}}</span>
+            <span style="margin-left:.25em">{{option.label}}</span>
+        </ng-template>
+
+        <ng-template let-option pTemplate="item">
+            <span style="margin-left:.25em">{{option.label}}</span>
         </ng-template>
     </p-dropdown>
     <p>Selected Car: {{selectedCar3 || 'none'}}</p>
@@ -208,7 +211,7 @@ export class MyModel &#123;
             </p>
             <pre>
 <code class="language-markup" pCode ngNonBindable>
-&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car" [group]="true"&gt;&lt;/p-dropdown&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar" placeholder="Select a Car"&gt;&lt;/p-dropdown&gt;
 </code>
 </pre>
 
@@ -568,15 +571,6 @@ export class MyModel &#123;
                             </td>
                         </tr>
                         <tr>
-                            <td>group</td>
-                            <td>boolean</td>
-                            <td>false</td>
-                            <td>
-                                Whether to display options as grouped when
-                                nested options are provided.
-                            </td>
-                        </tr>
-                        <tr>
                             <td>showClear</td>
                             <td>boolean</td>
                             <td>false</td>
@@ -828,7 +822,7 @@ clearFilter(dropdown: Dropdown) &#123;
 &lt;p&gt;Selected Car: &#123;&#123;selectedCar2 || 'none'&#125;&#125;&lt;/p&gt;
 
 &lt;h3&gt;Group&lt;/h3&gt;
-&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car" [group]="true"&gt;
+&lt;p-dropdown [options]="groupedCars" [(ngModel)]="selectedCar3" placeholder="Select a Car"&gt;
     &lt;ng-template let-group pTemplate="group"&gt;
         &lt;img src="assets/showcase/images/demo/flag/&#123;&#123;group.value&#125;&#125;" style="width:20px;vertical-align:middle" /&gt;
         &lt;span style="margin-left:.25em"&gt;&#123;&#123;group.label&#125;&#125;&lt;/span&gt;

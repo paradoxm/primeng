@@ -67,7 +67,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 
             <ul
                 class="ui-group-items"
-                *ngIf="group && option[optionLabel]?.length"
+                *ngIf="option[optionChildrenName]?.length"
             >
                 <ng-content></ng-content>
             </ul>
@@ -77,12 +77,11 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 export class DropdownItem {
     @Input() option: SelectItem;
     @Input() optionLabel = "label";
+    @Input() optionChildrenName: string;
 
     @Input() selected: boolean;
 
     @Input() disabled: boolean;
-
-    @Input() group: boolean;
 
     @Input() visible: boolean;
 
@@ -245,86 +244,83 @@ export class DropdownItem {
                             class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                             role="listbox"
                         >
-                            <ng-container *ngIf="group">
-                                <ng-template
-                                    ngFor
-                                    let-optgroup
-                                    [ngForOf]="optionsToDisplay"
-                                >
-                                    <p-dropdownItem
-                                        [option]="optgroup"
-                                        [disabled]="optgroup.disabled"
-                                        [optionLabel]="optionLabel"
-                                        [group]="group"
-                                        [selected]="
-                                            compareOptions(
-                                                selectedOption,
-                                                optgroup
-                                            )
-                                        "
-                                        (onClick)="onItemClick($event)"
-                                        [template]="
-                                            groupTemplate ||
-                                            groupTemplateDefault
-                                        "
-                                    >
-                                        <ng-container
-                                            *ngTemplateOutlet="
-                                                itemslist;
-                                                context: {
-                                                    $implicit: children(
-                                                        optgroup
-                                                    ),
-                                                    selectedOption: selectedOption
-                                                }
-                                            "
-                                        ></ng-container>
-                                    </p-dropdownItem>
-
-                                    <ng-template
-                                        let-optgroup
-                                        #groupTemplateDefault
-                                    >
-                                        <span>{{
-                                            optgroup[optionLabel] || "empty"
-                                        }}</span>
-                                    </ng-template>
-                                </ng-template>
-                            </ng-container>
-
-                            <ng-container *ngIf="!group">
-                                <ng-container
-                                    *ngTemplateOutlet="
-                                        itemslist;
-                                        context: {
-                                            $implicit: optionsToDisplay,
-                                            selectedOption: selectedOption
-                                        }
-                                    "
-                                ></ng-container>
-                            </ng-container>
+                            <ng-container
+                                *ngTemplateOutlet="
+                                    virtualScroll
+                                        ? virtualScrollList
+                                        : itemslist;
+                                    context: {
+                                        $implicit: optionsToDisplay,
+                                        selectedOption: selectedOption,
+                                        template: groupTemplate || itemTemplate
+                                    }
+                                "
+                            ></ng-container>
 
                             <ng-template
                                 #itemslist
                                 let-options
                                 let-selectedOption="selectedOption"
+                                let-template="template"
                             >
-                                <ng-container
+                                <p-dropdownItem
+                                    *ngFor="let option of options"
+                                    [option]="option"
+                                    [disabled]="option.disabled"
+                                    [optionLabel]="optionLabel"
+                                    [optionChildrenName]="optionChildrenName"
+                                    [selected]="
+                                        compareOptions(selectedOption, option)
+                                    "
+                                    (onClick)="onItemClick($event)"
+                                    [template]="template"
+                                >
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            itemslist;
+                                            context: {
+                                                $implicit: children(option),
+                                                selectedOption: selectedOption,
+                                                template: itemTemplate
+                                            }
+                                        "
+                                    ></ng-container>
+                                </p-dropdownItem>
+                            </ng-template>
+
+                            <ng-template
+                                #virtualScrollList
+                                let-options
+                                let-selectedOption="selectedOption"
+                            >
+                                <cdk-virtual-scroll-viewport
+                                    #viewport
+                                    [ngStyle]="{ height: scrollHeight }"
+                                    [itemSize]="itemSize"
                                     *ngIf="
-                                        !virtualScroll;
-                                        else virtualScrollList
+                                        virtualScroll &&
+                                        optionsToDisplay &&
+                                        optionsToDisplay.length
                                     "
                                 >
-                                    <ng-template
-                                        ngFor
-                                        let-option
-                                        let-i="index"
-                                        [ngForOf]="options"
+                                    <ng-container
+                                        *cdkVirtualFor="
+                                            let option of options;
+                                            let i = index;
+                                            let c = count;
+                                            let f = first;
+                                            let l = last;
+                                            let e = even;
+                                            let o = odd
+                                        "
                                     >
                                         <p-dropdownItem
                                             [option]="option"
                                             [disabled]="option.disabled"
                                             [optionLabel]="optionLabel"
+                                            [optionChildrenName]="
+                                                optionChildrenName
+                                            "
                                             [selected]="
                                                 compareOptions(
                                                     selectedOption,
@@ -333,49 +329,12 @@ export class DropdownItem {
                                             "
                                             (onClick)="onItemClick($event)"
                                             [template]="itemTemplate"
-                                        ></p-dropdownItem>
-                                    </ng-template>
-                                </ng-container>
-
-                                <ng-template #virtualScrollList>
-                                    <cdk-virtual-scroll-viewport
-                                        #viewport
-                                        [ngStyle]="{ height: scrollHeight }"
-                                        [itemSize]="itemSize"
-                                        *ngIf="
-                                            virtualScroll &&
-                                            optionsToDisplay &&
-                                            optionsToDisplay.length
-                                        "
-                                    >
-                                        <ng-container
-                                            *cdkVirtualFor="
-                                                let option of options;
-                                                let i = index;
-                                                let c = count;
-                                                let f = first;
-                                                let l = last;
-                                                let e = even;
-                                                let o = odd
-                                            "
                                         >
-                                            <p-dropdownItem
-                                                [option]="option"
-                                                [disabled]="option.disabled"
-                                                [optionLabel]="optionLabel"
-                                                [selected]="
-                                                    compareOptions(
-                                                        selectedOption,
-                                                        option
-                                                    )
-                                                "
-                                                (onClick)="onItemClick($event)"
-                                                [template]="itemTemplate"
-                                            ></p-dropdownItem>
-                                        </ng-container>
-                                    </cdk-virtual-scroll-viewport>
-                                </ng-template>
+                                        </p-dropdownItem>
+                                    </ng-container>
+                                </cdk-virtual-scroll-viewport>
                             </ng-template>
+
                             <li
                                 *ngIf="
                                     filter &&
@@ -524,8 +483,6 @@ export class Dropdown
 
     @Input() autoDisplayFirst = true;
 
-    @Input() group: boolean;
-
     @Input() optionChildrenName = "items";
 
     @Input() showClear: boolean;
@@ -570,6 +527,8 @@ export class Dropdown
     editableInputViewChild: ElementRef;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+
+    group = true;
 
     private _autoWidth: boolean;
 
