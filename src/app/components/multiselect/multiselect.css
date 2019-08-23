@@ -58,7 +58,7 @@
 .ui-multiselect-panel .ui-multiselect-items-wrapper {
     overflow: auto;
     position: relative;
-    padding: 0.2em 0;
+    padding: 0 0;
 }
 
 .ui-multiselect-panel .ui-multiselect-list {
@@ -152,3 +152,10 @@
     box-sizing: border-box;
 }
 
+.ui-multiselect-items-wrapper ng-scrollbar {
+    max-height: inherit;
+}
+
+.ui-multiselect-items-wrapper .ng-scrollbar-layout {
+    max-height: inherit;
+}
