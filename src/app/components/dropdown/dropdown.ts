@@ -1,39 +1,40 @@
-import { ScrollingModule } from "@angular/cdk/scrolling";
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    OnInit,
-    AfterViewInit,
-    AfterContentInit,
-    AfterViewChecked,
-    OnDestroy,
-    Input,
-    Output,
-    Renderer2,
-    EventEmitter,
-    ContentChildren,
-    QueryList,
-    ViewChild,
-    TemplateRef,
-    forwardRef,
-    ChangeDetectorRef,
-    NgZone
-} from "@angular/core";
-import {
-    trigger,
+    animate,
+    AnimationEvent,
     state,
     style,
     transition,
-    animate,
-    AnimationEvent
+    trigger
 } from "@angular/animations";
+import { ScrollingModule } from "@angular/cdk/scrolling";
 import { CommonModule } from "@angular/common";
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import { NgScrollbarModule } from "ngx-scrollbar";
 import { SelectItem } from "../common/selectitem";
-import { SharedModule, PrimeTemplate } from "../common/shared";
+import { PrimeTemplate, SharedModule } from "../common/shared";
 import { DomHandler } from "../dom/domhandler";
 import { ObjectUtils } from "../utils/objectutils";
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -224,22 +225,11 @@ export class DropdownItem {
                     <span class="ui-dropdown-filter-icon pi pi-search"></span>
                 </div>
 
-                <ng-container *ngIf="listWrapperTemplate; else listWrapper">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            listWrapperTemplate;
-                            context: { $implicit: listWrapper }
-                        "
-                    ></ng-container>
-                </ng-container>
-
-                <ng-template #listWrapper>
-                    <div
-                        class="ui-dropdown-items-wrapper"
-                        [style.max-height]="
-                            virtualScroll ? 'auto' : scrollHeight || 'auto'
-                        "
-                    >
+                <div
+                    class="ui-dropdown-items-wrapper"
+                    [style.max-height]="scrollHeight"
+                >
+                    <ng-scrollbar [compact]="true">
                         <ul
                             class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                             role="listbox"
@@ -294,25 +284,13 @@ export class DropdownItem {
                                 let-selectedOption="selectedOption"
                             >
                                 <cdk-virtual-scroll-viewport
-                                    #viewport
+                                    ngScrollbarView
+                                    smoothScroll
                                     [ngStyle]="{ height: scrollHeight }"
                                     [itemSize]="itemSize"
-                                    *ngIf="
-                                        virtualScroll &&
-                                        optionsToDisplay &&
-                                        optionsToDisplay.length
-                                    "
                                 >
                                     <ng-container
-                                        *cdkVirtualFor="
-                                            let option of options;
-                                            let i = index;
-                                            let c = count;
-                                            let f = first;
-                                            let l = last;
-                                            let e = even;
-                                            let o = odd
-                                        "
+                                        *cdkVirtualFor="let option of options"
                                     >
                                         <p-dropdownItem
                                             [option]="option"
@@ -346,8 +324,8 @@ export class DropdownItem {
                                 {{ emptyFilterMessage }}
                             </li>
                         </ul>
-                    </div>
-                </ng-template>
+                    </ng-scrollbar>
+                </div>
             </div>
         </div>
     `,
@@ -538,8 +516,6 @@ export class Dropdown
 
     itemsWrapper: HTMLDivElement;
 
-    listWrapperTemplate: TemplateRef<any>;
-
     itemTemplate: TemplateRef<any>;
 
     groupTemplate: TemplateRef<any>;
@@ -601,10 +577,6 @@ export class Dropdown
     ngAfterContentInit() {
         this.templates.forEach(item => {
             switch (item.getType()) {
-                case "listWrapper":
-                    this.listWrapperTemplate = item.template;
-                    break;
-
                 case "item":
                     this.itemTemplate = item.template;
                     break;
@@ -1498,7 +1470,7 @@ export class Dropdown
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, ScrollingModule],
+    imports: [CommonModule, SharedModule, ScrollingModule, NgScrollbarModule],
     exports: [Dropdown, SharedModule, ScrollingModule],
     declarations: [Dropdown, DropdownItem]
 })

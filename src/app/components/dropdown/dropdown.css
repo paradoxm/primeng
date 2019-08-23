@@ -12,7 +12,7 @@
     top: 50%;
     font-size: 1em;
     height: 1em;
-    margin-top: -.5em;
+    margin-top: -0.5em;
 }
 
 .ui-dropdown .ui-dropdown-trigger {
@@ -25,18 +25,18 @@
     position: absolute;
     right: 0;
     top: 0;
-    padding: 0 .25em;
+    padding: 0 0.25em;
 }
 
 .ui-dropdown .ui-dropdown-trigger .ui-dropdown-trigger-icon {
     top: 50%;
     left: 50%;
-    margin-top: -.5em;
-    margin-left: -.5em;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
     position: absolute;
 }
 
-.ui-dropdown .ui-dropdown-label  {
+.ui-dropdown .ui-dropdown-label {
     display: block;
     border: none;
     white-space: nowrap;
@@ -48,7 +48,7 @@
 
 .ui-dropdown-item-empty,
 .ui-dropdown-label-empty {
-    text-indent: -9999px;   
+    text-indent: -9999px;
     overflow: hidden;
 }
 
@@ -57,11 +57,11 @@
     cursor: default;
 }
 
-.ui-dropdown label.ui-dropdown-label  {
+.ui-dropdown label.ui-dropdown-label {
     cursor: pointer;
 }
 
-.ui-dropdown input.ui-dropdown-label  {
+.ui-dropdown input.ui-dropdown-label {
     cursor: default;
 }
 
@@ -88,7 +88,7 @@
     border: 0 none;
     cursor: pointer;
     margin: 1px 0;
-    padding: .125em .25em;
+    padding: 0.125em 0.25em;
     text-align: left;
 }
 
@@ -99,8 +99,8 @@
 }
 
 .ui-dropdown-panel .ui-dropdown-empty-message {
-    padding: .5em;
-} 
+    padding: 0.5em;
+}
 
 .ui-dropdown-panel .ui-dropdown-item-group {
     font-weight: bold;
@@ -128,7 +128,7 @@
 
 .ui-dropdown-panel .ui-dropdown-filter-container .ui-dropdown-filter-icon {
     position: absolute;
-    top: .8em;
+    top: 0.8em;
     right: 1em;
 }
 
@@ -136,4 +136,12 @@
 .ui-fluid .ui-dropdown {
     width: 100%;
     min-width: 100%;
+}
+
+.ui-dropdown-items-wrapper ng-scrollbar {
+    max-height: inherit;
+}
+
+.ui-dropdown-items-wrapper .ng-scrollbar-layout {
+    max-height: inherit;
 }
