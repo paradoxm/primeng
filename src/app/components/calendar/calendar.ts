@@ -1141,6 +1141,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
 
+        console.log(date);
         this.onSelect.emit(date);
     }
 
