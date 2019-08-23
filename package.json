@@ -1,7 +1,6 @@
 {
   "name": "primeng-px",
-  "version": "8.0.80",
-  "version": "8.0.82",
+  "version": "8.0.83",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
