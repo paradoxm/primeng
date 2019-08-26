@@ -37,7 +37,7 @@
 
 .ui-autocomplete-panel {
     position: absolute;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .ui-autocomplete-panel .ui-autocomplete-list {
@@ -160,4 +160,12 @@
 
 .ui-fluid .ui-autocomplete .ui-autocomplete-dropdown.ui-button {
     width: 2em;
+}
+
+.ui-autocomplete-panel ng-scrollbar {
+    max-height: inherit;
+}
+
+.ui-autocomplete-panel .ng-scrollbar-layout {
+    max-height: inherit;
 }
