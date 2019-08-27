@@ -138,10 +138,10 @@
     min-width: 100%;
 }
 
-.ui-dropdown-items-wrapper ng-scrollbar {
+/* .ui-dropdown-items-wrapper ng-scrollbar {
     max-height: inherit;
 }
 
 .ui-dropdown-items-wrapper .ng-scrollbar-layout {
     max-height: inherit;
-}
+} */

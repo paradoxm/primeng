@@ -229,7 +229,6 @@ export class DropdownItem {
                     class="ui-dropdown-items-wrapper"
                     [style.max-height]="scrollHeight"
                 >
-                    <ng-scrollbar [compact]="true">
                         <ul
                             class="ui-dropdown-items ui-dropdown-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                             role="listbox"
@@ -324,7 +323,6 @@ export class DropdownItem {
                                 {{ emptyFilterMessage }}
                             </li>
                         </ul>
-                    </ng-scrollbar>
                 </div>
             </div>
         </div>
