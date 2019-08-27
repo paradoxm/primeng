@@ -1020,6 +1020,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
 
         this.updateInputfield();
+        setTimeout(() => {
+            this.updateArrowPosition();
+        }, 0);
         event.preventDefault();
     }
 
@@ -1888,7 +1891,16 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    updateArrowPosition(parentElement) {
+    updateArrowPosition() {
+        let parentElement;
+        if (this.possitionElement) {
+            DomHandler.absolutePosition(this.overlay, this.possitionElement);
+            parentElement = this.possitionElement;
+        } else {
+            DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
+            parentElement = this.inputfieldViewChild.nativeElement.parentElement;
+        }
+
         // distance from right side of input to calendar icon
         const iconPosition = 15;
 
@@ -1978,13 +1990,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.enableModality(this.overlay);
         } else {
             if (this.appendTo){
-                if (this.possitionElement) {
-                    DomHandler.absolutePosition(this.overlay, this.possitionElement);
-                    this.updateArrowPosition(this.possitionElement);
-                } else {
-                    DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-                    this.updateArrowPosition(this.inputfieldViewChild.nativeElement.parentElement);
-                }
+                this.updateArrowPosition();
             } else {
                 DomHandler.relativePosition(this.overlay, this.inputfieldViewChild.nativeElement);
             }
