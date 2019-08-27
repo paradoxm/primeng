@@ -1892,31 +1892,38 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     updateArrowPosition() {
-        let parentElement;
-        if (this.possitionElement) {
-            DomHandler.absolutePosition(this.overlay, this.possitionElement);
-            parentElement = this.possitionElement;
-        } else {
-            DomHandler.absolutePosition(this.overlay, this.inputfieldViewChild.nativeElement);
-            parentElement = this.inputfieldViewChild.nativeElement.parentElement;
-        }
+        let targetToAttach = this.inputfieldViewChild.nativeElement
+        let parentElement = this.inputfieldViewChild.nativeElement.parentElement;
 
         // distance from right side of input to calendar icon
-        const iconPosition = 15;
+        let iconPosition = 18;
 
-        if (this.overlay.classList.contains('ui-position-left')) {
-            this.arrow.style.left =
-                this.overlay.getBoundingClientRect().width -
-                this.arrow.getBoundingClientRect().width / 2 -
-                iconPosition +
-                'px';
-        } else {
-            this.arrow.style.left =
-                parentElement.getBoundingClientRect().width -
-                this.arrow.getBoundingClientRect().width / 2 -
-                iconPosition +
-                'px';
+        if (this.possitionElement) {
+            targetToAttach = this.possitionElement;
+            parentElement = this.possitionElement;
         }
+
+        DomHandler.absolutePosition(this.overlay, targetToAttach);
+
+        let parentElementCoords = parentElement.getBoundingClientRect();
+        let overlayCoords = this.overlay.getBoundingClientRect()
+
+        let arrowLeftOffset = parentElementCoords.width
+        if (this.overlay.classList.contains('ui-position-left')) {
+            arrowLeftOffset = parentElementCoords.width - (parentElementCoords.width - overlayCoords.width)
+        }
+
+        // input wider than calendar width
+        if (parentElementCoords.width > overlayCoords.width) {
+            this.overlay.style.left = overlayCoords.left + (parentElementCoords.width - overlayCoords.width) + 'px'
+            arrowLeftOffset = parentElementCoords.width - (parentElementCoords.width - overlayCoords.width)
+        }
+
+        this.arrow.style.left =
+            arrowLeftOffset -
+                this.arrow.getBoundingClientRect().width / 2 -
+                iconPosition +
+                'px';
     }
 
     showOverlay() {
