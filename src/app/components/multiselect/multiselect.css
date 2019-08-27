@@ -79,7 +79,7 @@
 
 .ui-multiselect-panel .ui-multiselect-empty-message {
     padding: .5em;
-}
+} 
 
 .ui-multiselect-panel .ui-multiselect-item .ui-chkbox {
     display: inline-block;
@@ -121,7 +121,7 @@
     top: .25em;
     left: .125em;
 }
-
+            
 .ui-multiselect-header .ui-inputtext {
     padding: .125em .125em .125em 1.25em;
     width: 100%;
@@ -152,10 +152,10 @@
     box-sizing: border-box;
 }
 
-/* .ui-multiselect-items-wrapper ng-scrollbar {
+.ui-multiselect-items-wrapper ng-scrollbar {
     max-height: inherit;
 }
 
 .ui-multiselect-items-wrapper .ng-scrollbar-layout {
     max-height: inherit;
-} */
+}

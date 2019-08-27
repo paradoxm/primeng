@@ -248,6 +248,7 @@ export class MultiSelectItem {
                     class="ui-multiselect-items-wrapper"
                     [style.max-height]="scrollHeight"
                 >
+                    <ng-scrollbar [compact]="true">
                         <ul
                             class="ui-multiselect-items ui-multiselect-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
                         >
@@ -317,6 +318,7 @@ export class MultiSelectItem {
                                 {{ emptyFilterMessage }}
                             </li>
                         </ul>
+                    </ng-scrollbar>
                 </div>
 
                 <div

@@ -188,6 +188,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
                 (@overlayAnimation.done)="onOverlayAnimationDone($event)"
             >
+                <ng-scrollbar [compact]="true">
                     <ul
                         role="listbox"
                         class="ui-autocomplete-items ui-autocomplete-list ui-widget-content ui-widget ui-corner-all ui-helper-reset"
@@ -225,6 +226,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             {{ emptyMessage }}
                         </li>
                     </ul>
+                </ng-scrollbar>
             </div>
         </span>
     `,
