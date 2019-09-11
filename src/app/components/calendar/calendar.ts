@@ -1892,6 +1892,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     updateArrowPosition() {
+        if (this.inline) {
+            return;
+        }
+
         let targetToAttach = this.inputfieldViewChild.nativeElement
         let parentElement = this.inputfieldViewChild.nativeElement.parentElement;
 
