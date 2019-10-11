@@ -334,15 +334,15 @@ export class DropdownItem {
             state(
                 "void",
                 style({
-                    transform: "translateY(5%)",
-                    opacity: 0
+                    height: "0px",
+                    overflow: "hidden",
                 })
             ),
             state(
                 "visible",
                 style({
-                    transform: "translateY(0)",
-                    opacity: 1
+                    height: "*",
+                    overflow: "hidden",
                 })
             ),
             transition("void => visible", animate("{{showTransitionParams}}")),
