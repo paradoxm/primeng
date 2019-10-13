@@ -38,6 +38,7 @@ export interface LocaleSettings {
     monthNames: string[];
     monthNamesShort: string[];
     today: string;
+    apply: string;
     clearSingle: string;
     clearPlural: string;
     dateFormat?: string;
@@ -295,14 +296,19 @@ export interface LocaleSettings {
                 </div>
                 <div class="ui-datepicker-buttonbar ui-widget-header" *ngIf="showButtonBar">
                     <div class="ui-g">
-                        <div class="ui-g-6">
+                        <div [ngClass]="{'ui-g-6': selectionMode !== 'range', 'ui-g-4': selectionMode === 'range' }">
                             <button type="button" class="ui-clear-button" [label]="localeClear"
                                     (click)="onClearButtonClick($event)" pButton
                                     [ngClass]="[clearButtonStyleClass]"></button>
                         </div>
-                        <div class="ui-g-6">
+                        <div [ngClass]="{'ui-g-6': selectionMode !== 'range', 'ui-g-4': selectionMode === 'range' }">
                             <button type="button" class="ui-today-button" [label]="_locale.today"
                                     (click)="onTodayButtonClick($event)" pButton
+                                    [ngClass]="[todayButtonStyleClass]"></button>
+                        </div>
+                        <div *ngIf="selectionMode === 'range'" class="ui-g-4">
+                            <button type="button" class="ui-apply-button" [label]="_locale.apply"
+                                    (click)="onApplyButtonClick($event)" pButton
                                     [ngClass]="[todayButtonStyleClass]"></button>
                         </div>
                     </div>
@@ -485,6 +491,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
         monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
         today: 'Select Today',
+        apply: 'Apply',
         clearSingle: 'Clear Date',
         clearPlural: 'Clear Dates',
         dateFormat: 'mm/dd/yy',
@@ -2410,6 +2417,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
+    }
+
+    onApplyButtonClick(event) {
+        this.hideOverlay();
     }
 
     onClearButtonClick(event) {
