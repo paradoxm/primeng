@@ -69,7 +69,7 @@ export interface LocaleSettings {
                      [ngStyle]="inputStyle"
                      [class]="inputStyleClass"
                      [ngClass]="'ui-calendar-value-container ui-widget ui-state-default ui-corner-all'"
-                >{{inputFieldValue || placeholder || ''}}</div>
+                ><ng-content select="[inputSvgIcon]"></ng-content>{{inputFieldValue || placeholder || ''}}</div>
                 <button type="button" [icon]="icon" pButton *ngIf="showIcon"
                          (click)="onButtonClick($event,inputfield)"
                          class="ui-datepicker-trigger ui-calendar-button"
@@ -94,11 +94,11 @@ export interface LocaleSettings {
                             <ng-content select="p-header"></ng-content>
                             <a class="ui-datepicker-prev ui-corner-all"
                                (click)="navBackward($event)" *ngIf="i === 0">
-                                <span class="ui-datepicker-prev-icon pi pi-chevron-left"></span>
+                                <span class="ui-datepicker-prev-icon pi pi-chevron-left"><ng-content select="[prevSvgIcon]"></ng-content></span>
                             </a>
                             <a class="ui-datepicker-next ui-corner-all" (click)="navForward($event)"
                                *ngIf="numberOfMonths === 1 ? true : (i === numberOfMonths -1)">
-                                <span class="ui-datepicker-next-icon pi pi-chevron-right"></span>
+                                <span class="ui-datepicker-next-icon pi pi-chevron-right"><ng-content select="[nextSvgIcon]"></ng-content></span>
                             </a>
                             <div class="ui-datepicker-title">
                                 <span class="ui-datepicker-month"
